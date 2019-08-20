@@ -24,6 +24,8 @@ class Decimal(private val dbl: Double) extends AnyVal with Ordered[Decimal] {
 
   def unary_-(): Decimal = -this.dbl
 
+  def abs(): Decimal = math.abs(this.dbl)
+
   def toInt: Int = dbl.toInt
 
   def toLong: Long = dbl.toLong
@@ -54,7 +56,6 @@ object Decimal {
   // can be implicitly lifted from doubles, ints and longs
 
   implicit def fromDouble(dbl: Double): Decimal = Decimal(dbl)
-  implicit def toDouble(dec: Decimal): Double = dec.toDouble
   implicit def fromInt(int: Int): Decimal = Decimal.apply(int)
   implicit def fromLong(long: Long): Decimal = Decimal.apply(long)
 
@@ -92,11 +93,10 @@ object Decimal {
   }
 
   /**
-   * Adds ".toDecimal" and "asDecimal" methods to doubles
+   * Adds ".toDecimal"
    * @param dbl Double value to extend
    */
   implicit class Extension(val dbl: Double) extends AnyVal {
-    def toDecimal()(implicit normFactor: Double = DEFAULT_SCALE_FACTOR): Decimal = Decimal(dbl)(normFactor)
-    def asDecimal()(implicit normFactor: Double = DEFAULT_SCALE_FACTOR): Decimal = Decimal.normalize(dbl)(normFactor)
+    def toDecimal(implicit normFactor: Double = DEFAULT_SCALE_FACTOR): Decimal = Decimal(dbl)(normFactor)
   }
 }

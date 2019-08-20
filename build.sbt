@@ -8,6 +8,11 @@ ThisBuild / scalaVersion := scala213
 
 lazy val sdec = (project in file("."))
   .settings(
-    crossScalaVersions := supportedScalaVersions
+    crossScalaVersions := supportedScalaVersions,
+    libraryDependencies ++= Seq(
+      "org.scalactic" %% "scalactic" % "3.0.8" % "test",
+      "org.scalatest" %% "scalatest" % "3.0.8" % "test",
+      "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
+    )
   )
 
